@@ -1,0 +1,32 @@
+<div class="list-group-item stuck list-group-item-header" ng-if="pinnedTimeslot"><strong>{{pinnedTimeslot}}</strong></div>
+
+<div class="card">
+	<div class="card-header">DEVCON Schedular</div>
+		
+	<!--
+	<img class="card-img-top" data-src="holder.js/100%x180/?text=Image cap" alt="Card image cap">
+	-->
+	<div class="list-group list-group-flush" >
+		<div class="list-group-item">
+			<a type="button" href="#/technologyTinder" class="btn btn-primary btn-block">Technology Tinder <span class="fa fa-heart"></span></a>
+		</div>
+		<div ng-repeat="block in blocks">
+			<div class="list-group-item scroller list-group-item-header"><strong>{{block.timeslot}}</strong></div>
+			<a class="list-group-item text-overflow" href="#/session/{{session.id}}" title="{{session.title}}" ng-repeat="session in block.sessions">
+				
+				<span class="fa fa-heart-o pull-right" ng-if="session.recommended"></span>
+				
+				<span>{{session.title}}</span></br>
+				<small><i class="fa fa-clock-o"></i> {{block.timeslot}} | <i class="fa fa-location-arrow"></i> {{session.room}}</small>
+			</a>
+		</div>
+			  <!--
+			  <div class="card-block">
+				<a href="#" class="card-link">Card link</a>
+				<a href="#" class="card-link">Another link</a>
+			  </div>
+				-->
+	</div>
+	<span post-render></span>
+
+</div>

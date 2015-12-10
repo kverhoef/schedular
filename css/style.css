@@ -1,0 +1,132 @@
+html, body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    position: relative;
+}
+
+body.hideBodyOverflow {
+    overflow: hidden;
+}
+
+/* Wrapper with padding */
+.wrap  {
+	width: 100%;
+	height: 100%;
+	text-align: center;
+}
+
+#tinderslide {
+	display: inline;
+    background: #fff;
+}
+
+#tinderslide div.pane {
+    display: block;
+	width: 300px;
+	height: 400px;
+    overflow: hidden;
+    top: 0;
+    z-index: 2;
+    left: 0;
+    box-shadow: 0 0 20px rgba(0, 0, 0, .2);
+    overflow: hidden;
+    text-align: center;
+    background: white;
+    font-size: 24px;
+    color: #000;
+    border: 1px solid #fff;
+    border: 1px solid #dfdfdf;
+    border: 1px solid rgba(96, 96, 96, 0.2);
+    -webkit-transform: translate3d(0%,0,0) scale3d(1,1,1);
+    -moz-transform: translate3d(0%,0,0) scale3d(1,1,1);
+    -ms-transform: translate3d(0%,0,0) scale3d(1,1,1);
+    -o-transform: translate3d(0%,0,0) scale3d(1,1,1);
+    transform: translate3d(0%,0,0) scale3d(1,1,1);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Like & dislike badge images */
+#tinderslide .like,
+#tinderslide .dislike {
+    background: url("../images/liked.png") no-repeat scroll 0 0;
+    opacity: 0;
+    height: 80px;
+    position: absolute;
+    width: 170px;
+    left: 10px;
+    top:10px;
+    z-index: 1;
+    overflow: hidden;
+    -webkit-transform: translate3d(0%,0,0) scale3d(1,1,1);
+    -moz-transform: translate3d(0%,0,0) scale3d(1,1,1);
+    -ms-transform: translate3d(0%,0,0) scale3d(1,1,1);
+    -o-transform: translate3d(0%,0,0) scale3d(1,1,1);
+    transform: translate3d(0%,0,0) scale3d(1,1,1);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+#tinderslide .dislike {
+    right: 10px;
+    left: auto;
+    background: url("../images/nope.png") no-repeat scroll 0 0;
+}
+
+/* Image container */
+#tinderslide .img {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    -webkit-transform: translate3d(0%,0,0) scale3d(1,1,1);
+    -moz-transform: translate3d(0%,0,0) scale3d(1,1,1);
+    -ms-transform: translate3d(0%,0,0) scale3d(1,1,1);
+    -o-transform: translate3d(0%,0,0) scale3d(1,1,1);
+    transform: translate3d(0%,0,0) scale3d(1,1,1);
+    overflow: hidden;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: translate3d(0,0,0) scale3d(1,1,1);
+    -webkit-transform-style: preserve-3d;
+}
+
+/* images */
+
+.opensource {
+    background: url("../images/opensource.png");
+}
+.java9 {
+    background: url("../images/java9.png");
+}
+.java {
+    background: url("../images/java.png");
+}
+.docker {
+    background: url("../images/docker.png");
+}
+.android {
+    background: url("../images/android.png");
+}
+
+
+.text-overflow {
+	overflow:hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.stuck{
+    position:fixed;
+    z-index:100;
+    width:100%;
+    top:0;
+}
+
+.card-header {
+	background-color: #ccc;
+}
+
+.list-group-item-header {
+	background-color: #ddd;
+}

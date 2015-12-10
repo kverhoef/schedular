@@ -1,0 +1,27 @@
+<div class="card">
+	<div class="card-header">
+		<a type="button" class="btn btn-secondary btn-sm pull-left" style="top:-0.2em;position:relative;margin-right:0.5em;" href="#/"><strong><i class="fa fa-angle-left"></i></strong> Back</a>
+		DEVCON Schedular
+	</div>
+	
+	<!--
+	<img class="card-img-top" data-src="holder.js/100%x180/?text=Image cap" alt="Card image cap">
+	-->
+	<div class="list-group list-group-flush">
+		<div class="list-group-item list-group-item-header">
+			<center>
+				<strong>{{session.title}}</strong>
+			</center>
+		</div>
+		<div class="list-group-item">
+			<i class="fa fa-clock-o"></i> {{session.timeslot}}<br />
+			<i class="fa fa-location-arrow"></i> {{session.room}}
+		</div>
+		<div class="list-group-item" ng-bind-html="session.description | sanitize"></div>
+		<div class="list-group-item"><strong>Speakers</strong></div>
+		<div class="list-group-item" ng-repeat="speaker in session.speakers">
+			{{speaker}}
+		</div>
+
+	</div>
+</div>
