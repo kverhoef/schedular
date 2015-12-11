@@ -1,11 +1,11 @@
-angular.module("eu.luminis.devcon.schedule", ['ngRoute']);
+angular.module("eu.luminis.devcon.schedule", ['ngRoute','LocalStorageModule']);
 
 (function(angular){
 
 	angular.filter("sanitize", ['$sce', function($sce) {
-	  return function(htmlCode){
-		return $sce.trustAsHtml(htmlCode);
-	  }
+		return function(htmlCode){
+			return $sce.trustAsHtml(htmlCode);
+		}
 	}]);
 	
 	angular.config(['$routeProvider',

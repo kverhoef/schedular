@@ -3,5 +3,8 @@ angular.module("eu.luminis.devcon.schedule").controller('SessionCtrl', ['$scope'
 	
 		$scope.session = sessionsService.getSession($routeParams.id);
 		
+		$scope.ratingCallback = function() {
+			sessionsService.save();
+		}
 	}
 ]);

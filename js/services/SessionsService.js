@@ -1,9 +1,10 @@
 
-angular.module("eu.luminis.devcon.schedule").service('sessionsService', function() {
+angular.module("eu.luminis.devcon.schedule").service('sessionsService', function(localStorageService) {
 
 	var sessionSequence = 0;
+	var storageKey = "blocks-2";
 	
-	var blocks = [
+	var blocks = localStorageService.get(storageKey) || [
 		{
 			timeslot: "09:30 - 11:30",
 			sessions: [	
@@ -13,6 +14,16 @@ angular.module("eu.luminis.devcon.schedule").service('sessionsService', function
 					title: "Opening keynotes",
 					speakers: ["Stéphane Nicolas"],
 					description: "<ul><li>Welcome and announcements by Stephan Janssen and guests</li><li>Mark Reinhold, Chief Architect of the Java Platform Group at Oracle</li><li>“A Universe from Nothing” by Professor Lawrence M. Krauss</li></ul>"
+				}
+			]
+		},
+		{
+			timeslot: "09:40 - 12:00",
+			sessions: [	
+				{
+					id: sessionSequence++,
+					room: "Exhibition floor",
+					title: "Coffee Break"
 				}
 			]
 		},
@@ -55,6 +66,16 @@ angular.module("eu.luminis.devcon.schedule").service('sessionsService', function
 			]
 		},
 		{
+			timeslot: "13:00 - 14:00",
+			sessions: [	
+				{
+					id: sessionSequence++,
+					room: "Exhibition floor",
+					title: "Lunch"
+				}
+			]
+		},
+		{
 			timeslot: "14:00 - 15:00",
 			sessions: [	
 				{
@@ -88,13 +109,53 @@ angular.module("eu.luminis.devcon.schedule").service('sessionsService', function
 				}
 				
 			]
+		},
+		{
+			timeslot: "14:00 - 15:00",
+			sessions: [	
+				{
+					id: sessionSequence++,
+					room: "Room 3",
+					title: "Dockerize user stories with Mayfly",
+					speakers: ["Maarten Dirkse"],
+					description: "This talk introduces Mayfly, a development platform built by bol.com. Mayfly speeds up your service development by wrapping your scrum user story code in containers, testing it in an isolated, production-like environment and automatically enforcing your Definition of Done."
+				},
+				{
+					id: sessionSequence++,
+					room: "Room 4",
+					title: "$HOME Sweet $HOME",
+					speakers: ["Xavier Mertens "],
+					description: "With the rise of the mobile devices, the IoT (\"Internet of Things\") and all connected gadgets, home networks became a wild environment for all the family members. But the landscape is much broader and, today, developers must write code that will run on a multitude of different systems that do not offer the same flexibility as classic \"computers\". In this talk, I'll explain why security is important and why we (infosec people and developers) need to work together. Then I'll review some challenges that developers could face when developing on small hardware platforms and how to decrease the risks associated to them."
+				},
+				{
+					id: sessionSequence++,
+					room: "Room 5",
+					title: "Young Pups: New Collections APIs for Java 9",
+					speakers: ["Stuart Marks"],
+					description: "The Collections Framework has been around for a long time. The existing implementations have mostly served us well, but there's still room for improvement. Current work slated for Java 9 includes new collection implementations that add convenience, immutability, and space efficiency. The \"API footprint\" of the new collections will be extremely small, making them simple to learn and use. The new collections implement the standard collections interfaces, so they will be readily interoperable with code that uses the collections framework. The benefits will be simpler, cleaner code, and reduced memory consumption for many common cases."
+				},
+				{
+					id: sessionSequence++,
+					room: "Room 6",
+					title: "Swimming upstream in the container revolution: Containerless Continuous Delivery",
+					speakers: ["Bert Jan Schrijver "],
+					description: "You're probably familiar with the buzz around Docker and other popular container solutions. Advocates for these tools make it seem like using containers is the only way to go nowadays. So should we throw away everything we learned about Continuous Delivery in the past 10 years for a hype that's been around for just a few years? Of course not. This session shares experiences with a practical approach to Continuous Delivery and DevOps in 10 clear, down-to-earth steps. The result is a setup that is scalable, resilient and maintainable, yet without the use of popular container solutions like Docker or Mesos. Key concepts are automated provisioning and deployments, DevOps, continuous testing, microservices, open source, cloud services and automated scaling."
+				}
+				
+			]
 		}
 	];
+	
+	
 	
 	this.getAllBlocks = function() {
 		return blocks;
 	};
 	
+	this.save = function() {
+		localStorageService.set(storageKey, blocks);
+	}
+ 	
 	this.getSession = function(id) {
 		var result;
 		angular.forEach(blocks, function(block) {
@@ -108,5 +169,6 @@ angular.module("eu.luminis.devcon.schedule").service('sessionsService', function
 		});
 		return result;
 	};
+	
 	
 });

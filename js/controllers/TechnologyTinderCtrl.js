@@ -1,24 +1,19 @@
 angular.module("eu.luminis.devcon.schedule").controller('TechnologyTinderCtrl', ['$scope', 'sessionsService', 'technologyTinderService', '$location',
 	function ($scope, sessionsService, technologyTinderService, $location) {
 	
-		$scope.slide = technologyTinderService.getFirst();
+		$scope.slides = technologyTinderService.getSlides();
 	
-		$scope.onDislike = function(){
-			$scope.slide.liked = false;
-			next();
+		$scope.onDislike = function(slide){
+			slide.liked = false;
 		}
 		
-		$scope.onLike = function(){
-			$scope.slide.liked = true;
-			next();
+		$scope.onLike = function(slide){
+			slide.liked = true;
 		}
 		
-		var next = function() {
-			$scope.slide = technologyTinderService.next();
-			if (!$scope.slide) {
-				technologyTinderService.calculateMatches();
-				$location.path("/");
-			}
+		$scope.onEnd = function() {
+			technologyTinderService.calculateMatches();
+			$location.path("/");
 		}
 	
 	}

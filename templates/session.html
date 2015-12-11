@@ -14,11 +14,16 @@
 			</center>
 		</div>
 		<div class="list-group-item">
+		
 			<i class="fa fa-clock-o"></i> {{session.timeslot}}<br />
 			<i class="fa fa-location-arrow"></i> {{session.room}}
+			
+		</div>
+		<div class="list-group-item">
+			Rate session: <rating ng-model="session.rating" callback="ratingCallback"></rating>
 		</div>
 		<div class="list-group-item" ng-bind-html="session.description | sanitize"></div>
-		<div class="list-group-item"><strong>Speakers</strong></div>
+		<div class="list-group-item list-group-item-header"><strong>Speakers</strong></div>
 		<div class="list-group-item" ng-repeat="speaker in session.speakers">
 			{{speaker}}
 		</div>

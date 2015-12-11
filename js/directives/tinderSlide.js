@@ -3,9 +3,10 @@ angular.module("eu.luminis.devcon.schedule").directive('tinderSlide', function()
 	return {
 		restrict: 'E',
 		scope: {
-			slide: '=',
+			slides: '=',
 			onDislike : '=?',
 			onLike : '=?',
+			onEnd: '=?',
 			options : '=?'
 		},
 		template: 
@@ -24,6 +25,8 @@ angular.module("eu.luminis.devcon.schedule").directive('tinderSlide', function()
 				"</div>",
 		controller: function($scope, $element) {
 
+			var slideIndex = 0;
+		
 			var defaults = {
 				animationRevertSpeed: 200,
 				animationSpeed: 400,
@@ -42,8 +45,14 @@ angular.module("eu.luminis.devcon.schedule").directive('tinderSlide', function()
 			var touchStart = false;
 			var posX = 0, posY = 0, lastPosX = 0, lastPosY = 0, pane_width = 0;
 			
+			$scope.slide = $scope.slides[0];
+			
 			var handler = function (ev){
 				ev.preventDefault();
+				
+				if (!$scope.slide) {
+					return;
+				}
 				
 				switch (ev.type) {
 					case 'touchstart':
@@ -100,22 +109,21 @@ angular.module("eu.luminis.devcon.schedule").directive('tinderSlide', function()
 							if (posX > 0) {
 								pane.animate({"transform": "translate(" + (pane_width) + "px," + (posY + pane_width) + "px) rotate(60deg)"}, settings.animationSpeed, function () {
 									if($scope.onLike) {
-										$scope.onLike(pane);
-										$scope.$apply();
+										$scope.onLike($scope.slide);
 									}
-									next();
+									$scope.slide = next();
+									$scope.$apply();
 								});
 							} else {
 								pane.animate({"transform": "translate(-" + (pane_width) + "px," + (posY + pane_width) + "px) rotate(-60deg)"}, settings.animationSpeed, function () {
 									if($scope.onDislike) {
-										$scope.onDislike(pane);
-										$scope.$apply();
+										$scope.onDislike($scope.slide);
 									}
-									next();
+									$scope.slide = next();
+									$scope.$apply();
 								});
 							}
 						}
-						/*
 						else {
 							lastPosX = 0;
 							lastPosY = 0;
@@ -123,16 +131,25 @@ angular.module("eu.luminis.devcon.schedule").directive('tinderSlide', function()
 							pane.find(settings.likeSelector).animate({"opacity": 0}, settings.animationRevertSpeed);
 							pane.find(settings.dislikeSelector).animate({"opacity": 0}, settings.animationRevertSpeed);
 						}
-						*/
 						break;
 				}
 			}
 			
 			var next = function () {
-				if ($scope.slide) {
+				if (slideIndex+1 < $scope.slides.length ) {
 					pane.attr("style","").css('display','block');
 					pane.find('.like').css('opacity','0');
 					pane.find('.dislike').css('opacity','0');
+					
+					slideIndex++;
+					return $scope.slides[slideIndex];
+				}
+				else {
+					// end of slides
+					if($scope.onEnd) {
+						$scope.onEnd();
+						$scope.$apply();
+					}
 				}
 			}
 			

@@ -1,7 +1,6 @@
 
 angular.module("eu.luminis.devcon.schedule").service('technologyTinderService', function(sessionsService) {
 	
-	this.slideIndex = 0;
 	var slides = [
 		{
 			imageClass:"java",
@@ -29,23 +28,11 @@ angular.module("eu.luminis.devcon.schedule").service('technologyTinderService', 
 			liked: undefined
 		}
 	];
-	this.slides = slides;
 	
-	this.current = function() {
-		return this.slides[this.slideIndex];
+	this.getSlides = function() {
+		return slides;
 	}
 	
-	this.next = function() {
-		if (this.slideIndex+1 < this.slides.length ) {
-			this.slideIndex++;
-			return this.current();
-		}
-	}
-	
-	this.getFirst = function() {
-		return this.slides[0];
-	}
-
 	this.calculateMatches = function() {
 		angular.forEach(sessionsService.getAllBlocks(), function(block) {
 			var bestScore = 0;
@@ -54,16 +41,14 @@ angular.module("eu.luminis.devcon.schedule").service('technologyTinderService', 
 				
 				if (session.score>bestScore){
 					bestScore = session.score;
-					
 				}
 			});
 			
 			angular.forEach(block.sessions, function(session) {
-				if (session.score === bestScore) {
-					session.recommended = true;
-				}
+				session.recommended = session.score === bestScore;
 			});
 		});
+		sessionsService.save();
 	}
 	
 	function calculateScore(session) {
